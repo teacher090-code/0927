@@ -49,7 +49,6 @@
       font-size: 0.95rem;
     }
 
-    /* Step Navigation Tabs */
     .tab-container {
       display: flex;
       gap: 10px;
@@ -88,7 +87,6 @@
       box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
     }
 
-    /* Main Content Area */
     .content-box {
       background: var(--card-bg);
       border-radius: 16px;
@@ -112,7 +110,6 @@
       gap: 8px;
     }
 
-    /* Canvas Simulation Container */
     .sim-canvas-container {
       width: 100%;
       height: 320px;
@@ -129,7 +126,6 @@
       height: 100%;
     }
 
-    /* Controls */
     .controls {
       display: flex;
       justify-content: center;
@@ -168,7 +164,6 @@
       flex: 1;
     }
 
-    /* Quiz Area */
     .quiz-box {
       background: #0f172a;
       border: 1px solid #334155;
@@ -222,7 +217,6 @@
     .feedback-msg.success { color: var(--accent); }
     .feedback-msg.error { color: var(--danger); }
 
-    /* Next Step Button */
     .next-step-btn {
       margin-top: 15px;
       width: 100%;
@@ -263,7 +257,6 @@
     <p>3단계를 거치며 시차의 원리를 스스로 이해하고 개념을 정복해보세요!</p>
   </header>
 
-  <!-- Navigation Tabs -->
   <div class="tab-container">
     <div class="tab-btn active" id="tab1" onclick="switchTab(1)">
       <span>1단계: 관측자 시점</span>
@@ -285,7 +278,7 @@
       <span>1단계: 내 눈으로 보는 시차 (관측자 시점)</span>
     </div>
     <p style="margin-bottom: 15px; color: var(--text-muted);">
-      손가락을 눈앞에 두고 왼쪽 눈과 오른쪽 눈을 번갈아 감아보세요. 배경 별에 비해 가까운 별의 위치가 어떻게 보이나요?
+      손가락을 눈앞에 두고 왼쪽 눈과 오른쪽 눈을 번갈아 감아보세요. 배경 산에 비해 가까운 별의 위치가 어떻게 보이나요?
     </p>
 
     <div class="sim-canvas-container">
@@ -303,7 +296,7 @@
         관측자의 눈(위치)이 달라지면, 멀리 있는 배경보다 가까이 있는 물체(별)가 <b>어떻게</b> 움직이는 것처럼 보이나요? (비교하여 입력해 보세요)
       </div>
       <div class="quiz-input-group">
-        <input type="text" id="ans1" class="quiz-input" placeholder="예: ~한다">
+        <input type="text" id="ans1" class="quiz-input" placeholder="예: 더 많이 움직인다 / 좌우로 움직인다">
         <button class="btn" onclick="checkAnswer(1)">제출 및 AI 채점</button>
       </div>
       <div class="feedback-msg" id="feedback1"></div>
@@ -334,7 +327,7 @@
         별은 실제로 움직이지 않았습니다. 배경에서 별의 위치가 바뀌어 보이는 <b>근본적인 원인</b>은 무엇 때문인가요?
       </div>
       <div class="quiz-input-group">
-        <input type="text" id="ans2" class="quiz-input" placeholder="예: ~해서">
+        <input type="text" id="ans2" class="quiz-input" placeholder="예: 관측자(지구)의 위치가 변해서">
         <button class="btn" onclick="checkAnswer(2)">제출 및 AI 채점</button>
       </div>
       <div class="feedback-msg" id="feedback2"></div>
@@ -369,7 +362,7 @@
         물체(별)까지의 거리가 <b>가까울수록</b> 시차(두 시선이 이루는 각도)의 크기는 어떻게 되나요?
       </div>
       <div class="quiz-input-group">
-        <input type="text" id="ans3" class="quiz-input" placeholder="예: ~한다.">
+        <input type="text" id="ans3" class="quiz-input" placeholder="예: 더 커진다 / 증가한다">
         <button class="btn" onclick="checkAnswer(3)">제출 및 AI 채점</button>
       </div>
       <div class="feedback-msg" id="feedback3"></div>
@@ -380,13 +373,11 @@
   </div>
 
   <script>
-    // State management
     let currentStep = 1;
     let unlockedSteps = [true, false, false];
     let currentEye = 'left';
     let earthPos = 'A';
 
-    // Canvas contexts
     const c1 = document.getElementById('canvas1');
     const ctx1 = c1.getContext('2d');
     const c2 = document.getElementById('canvas2');
@@ -394,7 +385,6 @@
     const c3 = document.getElementById('canvas3');
     const ctx3 = c3.getContext('2d');
 
-    // Resize canvas for sharp rendering
     function initCanvasSize() {
       [c1, c2, c3].forEach(canvas => {
         canvas.width = canvas.parentElement.clientWidth;
@@ -406,7 +396,7 @@
     }
     window.addEventListener('resize', initCanvasSize);
 
-    // --- STEP 1: Observer Perspective ---
+    // --- STEP 1 ---
     function setEye(eye) {
       currentEye = eye;
       drawStep1();
@@ -461,7 +451,7 @@
       ctx1.fillText(`현재 관측: [ ${currentEye === 'left' ? '왼쪽 눈' : '오른쪽 눈'} ]`, w/2, 30);
     }
 
-    // --- STEP 2: Top-down View ---
+    // --- STEP 2 ---
     function toggleEarthPos() {
       earthPos = (earthPos === 'A') ? 'B' : 'A';
       drawStep2();
@@ -549,7 +539,7 @@
       ctx.fillText(label, x, y + 28);
     }
 
-    // --- STEP 3: Distance Dependency ---
+    // --- STEP 3: Distance Dependency (절대각도 수식으로 완전 교정) ---
     function drawStep3() {
       const w = c3.width;
       const h = c3.height;
@@ -558,7 +548,7 @@
       const distInput = parseInt(document.getElementById('starDist').value);
       const labelText = document.getElementById('distVal');
       
-      if(distInput < 150) labelText.innerText = "매우 가까움";
+      if(distInput < 150) labelText.innerText = "매우 가깝음";
       else if(distInput < 210) labelText.innerText = "보통 거리";
       else labelText.innerText = "멀음";
 
@@ -577,14 +567,15 @@
       ctx3.lineTo(posB.x, posB.y);
       ctx3.stroke();
 
-      // [수정 완료] 별 아래쪽 안쪽(내각)을 감싸는 각도 호
-      const angleA = Math.atan2(posA.y - starY, posA.x - starX);
-      const angleB = Math.atan2(posB.y - starY, posB.x - starX);
-      
+      // [핵심 교정] 수직선(Math.PI / 2) 기준 내각 범위를 기하학적으로 완벽 계산
+      const dx = (posB.x - posA.x) / 2;
+      const halfAngle = Math.asin(dx / Math.sqrt(dx * dx + distInput * distInput));
+
       ctx3.strokeStyle = "#f43f5e";
       ctx3.lineWidth = 3;
       ctx3.beginPath();
-      ctx3.arc(starX, starY, 35, angleB, angleA, false);
+      // 아래쪽 정중앙(90도) 기준 왼쪽/오른쪽 내각 범위로만 그려집니다.
+      ctx3.arc(starX, starY, 35, Math.PI / 2 - halfAngle, Math.PI / 2 + halfAngle, false);
       ctx3.stroke();
 
       // Angle Label
@@ -607,7 +598,6 @@
       drawEarth(ctx3, posB.x, posB.y, "관측위치 B", true);
     }
 
-    // --- Tab Navigation ---
     function switchTab(step) {
       if(!unlockedSteps[step - 1]) return;
 
@@ -635,7 +625,6 @@
       switchTab(nextStep);
     }
 
-    // --- AI Concept Grading Logic ---
     function checkAnswer(step) {
       const input = document.getElementById(`ans${step}`).value.trim().toLowerCase();
       const feedback = document.getElementById(`feedback${step}`);
@@ -692,7 +681,6 @@
       }
     }
 
-    // Initialize
     window.onload = () => {
       initCanvasSize();
     };
