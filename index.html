@@ -278,7 +278,7 @@
       <span>1단계: 내 눈으로 보는 시차 (관측자 시점)</span>
     </div>
     <p style="margin-bottom: 15px; color: var(--text-muted);">
-      손가락을 눈앞에 두고 왼쪽 눈과 오른쪽 눈을 번갈아 감아보세요. 배경 산에 비해 가까운 별의 위치가 어떻게 보이나요?
+      손가락을 눈앞에 두고 왼쪽 눈과 오른쪽 눈을 번갈아 감아보세요. 배경 별에 비해 가까운 별의 위치가 어떻게 보이나요?
     </p>
 
     <div class="sim-canvas-container">
@@ -296,7 +296,7 @@
         관측자의 눈(위치)이 달라지면, 멀리 있는 배경보다 가까이 있는 물체(별)가 <b>어떻게</b> 움직이는 것처럼 보이나요? (비교하여 입력해 보세요)
       </div>
       <div class="quiz-input-group">
-        <input type="text" id="ans1" class="quiz-input" placeholder="예: 더 많이 움직인다 / 좌우로 움직인다">
+        <input type="text" id="ans1" class="quiz-input" placeholder="예: ~한다">
         <button class="btn" onclick="checkAnswer(1)">제출 및 AI 채점</button>
       </div>
       <div class="feedback-msg" id="feedback1"></div>
@@ -327,7 +327,7 @@
         별은 실제로 움직이지 않았습니다. 배경에서 별의 위치가 바뀌어 보이는 <b>근본적인 원인</b>은 무엇 때문인가요?
       </div>
       <div class="quiz-input-group">
-        <input type="text" id="ans2" class="quiz-input" placeholder="예: 관측자(지구)의 위치가 변해서">
+        <input type="text" id="ans2" class="quiz-input" placeholder="예: ~해서">
         <button class="btn" onclick="checkAnswer(2)">제출 및 AI 채점</button>
       </div>
       <div class="feedback-msg" id="feedback2"></div>
@@ -362,12 +362,12 @@
         물체(별)까지의 거리가 <b>가까울수록</b> 시차(두 시선이 이루는 각도)의 크기는 어떻게 되나요?
       </div>
       <div class="quiz-input-group">
-        <input type="text" id="ans3" class="quiz-input" placeholder="예: 더 커진다 / 증가한다">
+        <input type="text" id="ans3" class="quiz-input" placeholder="예: ~한다">
         <button class="btn" onclick="checkAnswer(3)">제출 및 AI 채점</button>
       </div>
       <div class="feedback-msg" id="feedback3"></div>
       <div id="finalSuccess" style="display: none; margin-top: 15px; text-align: center; color: #4ade80; font-weight: bold; font-size: 1.2rem;">
-        🏆 축하합니다! 시차의 모든 원리를 완벽하게 마스터하셨습니다!
+        🏆 축하합니다! 시차의 모든 원리를 완벽하게 마스터하셨습니다! 알게된 내용을 정리하세요
       </div>
     </div>
   </div>
@@ -548,7 +548,7 @@
       const distInput = parseInt(document.getElementById('starDist').value);
       const labelText = document.getElementById('distVal');
       
-      if(distInput < 150) labelText.innerText = "매우 가깝음";
+      if(distInput < 150) labelText.innerText = "매우 가까움";
       else if(distInput < 210) labelText.innerText = "보통 거리";
       else labelText.innerText = "멀음";
 
